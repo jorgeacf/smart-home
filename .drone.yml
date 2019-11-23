@@ -8,6 +8,15 @@ steps:
       - pip install --upgrade pip setuptools nose
       - pip install --no-index -r requirements.txt
       - python setup.py install
+    when:
+      branch:
+        - master
+      event:
+        - push
+        - pull-request
+  - name: run tests
+    image: python:3.8.0-slim
+    commands:
       - nosetests tests
     when:
       branch:
