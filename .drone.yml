@@ -15,6 +15,18 @@ steps:
         - push
         - pull-request
 
+  - name: compile
+    image: python:3.8.0-slim
+    commands:
+      - pip install --upgrade pip pylint
+      - pylint tasks.__main_.py
+    when:
+      branch:
+        - master
+      event:
+        - push
+        - pull-request
+
   - name: run tox
     image: python:3.8.0-slim
     commands:
