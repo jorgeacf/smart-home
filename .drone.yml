@@ -14,3 +14,12 @@ steps:
       event:
         - push
         - pull-request
+  - name: slack
+    image: plugins/slack
+    settings:
+      webhook:
+        from_secret: slack_webhook
+      channel: github-drone-builds
+      username: drone
+    when:
+      status: [ success, failure ]
