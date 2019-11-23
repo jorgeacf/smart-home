@@ -8,12 +8,14 @@ steps:
       - pip install --upgrade pip setuptools
       - pip install --no-index -r requirements.txt
       - python setup.py install
+      - nosetests tests
     when:
       branch:
         - master
       event:
         - push
         - pull-request
+
   - name: slack
     image: plugins/slack
     settings:
