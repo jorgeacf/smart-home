@@ -14,6 +14,19 @@ steps:
       event:
         - push
         - pull-request
+
+  - name: run tox
+    image: python:3.8.0-slim
+    commands:
+      - pip install --upgrade pip tox
+      - tox
+    when:
+      branch:
+        - master
+      event:
+        - push
+        - pull-request
+
   - name: run tests
     image: python:3.8.0-slim
     commands:
