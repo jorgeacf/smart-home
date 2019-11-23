@@ -51,6 +51,20 @@ steps:
         - push
         - pull-request
 
+  - name: docker
+    image: plugins/docker
+      settings:
+        username:
+          from_secret: docker_username
+        password:
+          from_secret: docker_password
+        repo: jorgeacf/smart-home
+        dockerfile: docker/Dockerfile
+        tags:
+          - latest
+          - '1.0.1'
+          - '1.0'
+
   - name: slack
     image: plugins/slack
     settings:
