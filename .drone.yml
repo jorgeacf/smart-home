@@ -7,7 +7,6 @@ steps:
     commands:
       - pip install --upgrade pip setuptools
       - pip install --no-index -r requirements.txt
-      - pip install --no-index -r test-requirements.txt
       - python setup.py install
     when:
       branch:
