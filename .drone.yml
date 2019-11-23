@@ -15,7 +15,7 @@ steps:
         - push
         - pull-request
 
-  - name: compile
+  - name: lint
     image: python:3.8.0-slim
     commands:
       - pip install --upgrade pip pylint
