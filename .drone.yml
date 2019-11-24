@@ -1,3 +1,4 @@
+---
 kind: pipeline
 name: Smart Home Build Pipeline
 type: docker
@@ -64,6 +65,75 @@ steps:
         - latest
         - '1.0.1'
         - '1.0'
+
+  - name: slack
+    image: plugins/slack
+    settings:
+      webhook:
+        from_secret: slack_webhook
+      channel: github-drone-builds
+      username: drone
+    when:
+      status: [ success, failure ]
+---
+
+
+kind: pipeline
+name: Smart Home Build Pipeline (ARM)
+type: docker
+platform:
+  os: linux
+  arch: arm64
+steps:
+  - name: compile
+    image: arm32v6/python:3.8-rc-alpine
+    commands:
+      - pip install --upgrade pip setuptools
+      - pip install --no-index -r requirements.txt
+      - python setup.py install
+    when:
+      branch:
+        - master
+      event:
+        - push
+        - pull-request
+
+  - name: lint
+    image: arm32v6/python:3.8-rc-alpine
+    commands:
+      - pip install --upgrade pip pylint
+      - pylint tasks
+    when:
+      branch:
+        - master
+      event:
+        - push
+        - pull-request
+
+  - name: run tox
+    image: arm32v6/python:3.8-rc-alpine
+    commands:
+      - pip install --upgrade pip tox
+      - tox
+    when:
+      branch:
+        - master
+      event:
+        - push
+        - pull-request
+
+  - name: run tests
+    image: arm32v6/python:3.8-rc-alpine
+    commands:
+      - pip install --upgrade pip nose
+      - nosetests tests
+    when:
+      branch:
+        - master
+      event:
+        - push
+        - pull-request
+
   - name: docker-arm
     image: plugins/docker
     settings:
