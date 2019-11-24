@@ -83,7 +83,7 @@ name: Smart Home Build Pipeline (ARM)
 type: docker
 platform:
   os: linux
-  arch: arm32
+  arch: arm
 steps:
   - name: docker-arm
     image: plugins/docker
