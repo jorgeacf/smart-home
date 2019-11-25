@@ -7,4 +7,8 @@ WORKDIR /app
 # Bundle app source
 COPY . /app
 
+RUN apk update && apk add nmap
+
+RUN pip install --no-cache-dir -r requirements.txt
+
 ENTRYPOINT [ "python", "tasks" ]

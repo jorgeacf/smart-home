@@ -60,7 +60,7 @@ steps:
       password:
         from_secret: docker_password
       repo: jorgeacf/smart-home
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/Dockerfile.x86
       tags:
         - latest
         - '1.0.1'
@@ -93,7 +93,7 @@ steps:
       password:
         from_secret: docker_password
       repo: jorgeacf/smart-home
-      dockerfile: docker/Dockerfile.arm
+      dockerfile: docker/Dockerfile.arm32v6
       tags:
         - latest-arm
         - '1.0.1-arm'
