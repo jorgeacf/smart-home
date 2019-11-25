@@ -1,29 +1,29 @@
 #!/usr/bin/env python
 
-import nmap
-
 """Smart Home main"""
+
+import nmap
 
 if __name__ == '__main__':
 
     print("Starting main...")
     # initialize the port scanner
-    nmScan = nmap.PortScanner()
+    NMSCAN = nmap.PortScanner()
 
     # scan localhost for ports in range 21-443
-    nmScan.scan('192.168.0.21', '21-443')
+    NMSCAN.scan('192.168.0.21', '21-443')
 
     # run a loop to print all the found result about the ports
-    for host in nmScan.all_hosts():
-        print('Host : %s (%s)' % (host, nmScan[host].hostname()))
-        print('State : %s' % nmScan[host].state())
-        for proto in nmScan[host].all_protocols():
+    for host in NMSCAN.all_hosts():
+        print('Host : %s (%s)' % (host, NMSCAN[host].hostname()))
+        print('State : %s' % NMSCAN[host].state())
+        for proto in NMSCAN[host].all_protocols():
             print('----------')
             print('Protocol : %s' % proto)
 
-            lport = nmScan[host][proto].keys()
+            lport = NMSCAN[host][proto].keys()
             #lport.sort()
             for port in lport:
-                print('port : %s\tstate : %s' % (port, nmScan[host][proto][port]['state']))
+                print('port : %s\tstate : %s' % (port, NMSCAN[host][proto][port]['state']))
 
     print("Ending main...")
