@@ -7,7 +7,7 @@ steps:
     image: python:3.8.0-slim
     commands:
       - pip install --upgrade pip setuptools
-      - pip install --no-index -r requirements.txt
+      - pip install --no-cache-dir -r requirements.txt
       - python setup.py install
     when:
       branch:
