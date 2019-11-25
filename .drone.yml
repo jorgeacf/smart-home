@@ -20,6 +20,7 @@ steps:
     image: python:3.8.0-slim
     commands:
       - pip install --upgrade pip pylint
+      - pip install --no-cache-dir -r requirements.txt
       - pylint tasks
     when:
       branch:
