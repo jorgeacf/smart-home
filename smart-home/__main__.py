@@ -3,27 +3,18 @@
 """Smart Home main"""
 
 import nmap
+import argparse
 
 if __name__ == '__main__':
 
-    print("Starting main...")
-    # initialize the port scanner
-    NMSCAN = nmap.PortScanner()
+    parser = argparse.ArgumentParser(description='Smart Home tasks launcher.')
 
-    # scan localhost for ports in range 21-443
-    NMSCAN.scan('192.168.0.21', '21-443')
+    parser.add_argument('integers', metavar='N', type=int, nargs='+',
+                        help='an integer for the accumulator')
 
-    # run a loop to print all the found result about the ports
-    for host in NMSCAN.all_hosts():
-        print('Host : %s (%s)' % (host, NMSCAN[host].hostname()))
-        print('State : %s' % NMSCAN[host].state())
-        for proto in NMSCAN[host].all_protocols():
-            print('----------')
-            print('Protocol : %s' % proto)
+    parser.add_argument('--sum', dest='accumulate', action='store_const',
+                        const=sum, default=max,
+                        help='sum the integers (default: find the max)')
 
-            lport = NMSCAN[host][proto].keys()
-            #lport.sort()
-            for port in lport:
-                print('port : %s\tstate : %s' % (port, NMSCAN[host][proto][port]['state']))
-
-    print("Ending main...")
+    args = parser.parse_args()
+    print(args.accumulate(args.integers))
