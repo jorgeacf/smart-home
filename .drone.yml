@@ -21,7 +21,7 @@ steps:
     commands:
       - pip install --upgrade pip pylint
       - pip install --no-cache-dir -r requirements.txt
-      - pylint tasks
+      - pylint smart-home
     when:
       branch:
         - master
